@@ -1,26 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tienda 3x1</title>
-    <link rel="stylesheet" href="./css/estilos.css">
-    <link rel="shortcut icon" href="./css/media/tienda.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/estilos.css" />
+    <link rel="shortcut icon" href="./css/media/tienda.png" type="image/x-icon" />
 </head>
+
 <body>
     <header>
         <nav id="barra-nav">
-            <img src="./css/media/carrito-de-compras.png" alt="logo">
+            <img src="./css/media/logo.png" alt="logo" />
             <h1>Tienda 3x1</h1>
-            <input type="text" placeholder="buscar articulo">
-            <button onclick="buscar()">buscar</button>
+
+            <input type="text" id="busqueda" placeholder="Buscar artículo..." />
+            <button id="searchBtn">Buscar</button>
+
+            <select id="Filtrar">
+                <option value="all">Todas las categorías</option>
+            </select>
+
+            <select id="sortSelect">
+                <option value="default">Ordenar por...</option>
+                <option value="precio-acs">Precio: menor a mayor</option>
+                <option value="precio-desc">Precio: mayor a menor</option>
+                <option value="nombre-asc">Nombre A-Z</option>
+                <option value="nombre-desc">Nombre Z-A</option>
+            </select>
+
+            <button id="carro">🛒 Carrito (<span id="cartCount">0</span>)</button>
         </nav>
     </header>
-    <hr>
-    <main>
 
-        
+    <hr />
+
+    <main>
+        <section id="productos" class="Productos"></section>
+
+        <aside id="panelCarro" class="oculto">
+            <h2>🛒 Tu Carrito</h2>
+            <ul id="objetos"></ul>
+            <p>Total: $<span id="cantidadcarro">0.00</span></p>
+            <button id="Comprar">Realizar Compra</button>
+        </aside>
+        <script src="./JS/main.js"></script>
     </main>
-    <script src="./JS/main.js"></script>
+    <footer>
+        <small>todos los derechos reservados</small>
+    </footer>
 </body>
+
 </html>
