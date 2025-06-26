@@ -1,4 +1,4 @@
-// definimos contenedores
+// esto sirve para definir los contenedores
 let productos = []; // lista donde se guardan los productos de la api
 let productosFiltrados = []; // una copia segun la busqueda realizada
 let carrito = []; // aca se guardan los productos en el carrito
