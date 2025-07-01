@@ -772,3 +772,60 @@ footer {
   }
 }
 
+/* ===== MODIFICACIÓN: Ocultar logo y nombre en móviles ===== */
+@media (max-width: 767px) {
+  
+  /* Asegurar que en móvil se mantenga el header horizontal */
+  body {
+    margin-left: 0 !important;
+    padding-top: var(--nav-height-mobile) !important;
+  }
+  
+  header {
+    width: 100% !important;
+    height: var(--nav-height-mobile) !important;
+    right: 0 !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+  }
+  
+  #barra-nav {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important; /* CAMBIADO: centrar controles */
+    padding: var(--spacing-sm) !important;
+    height: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+  }
+  
+  /* NUEVO: Ocultar completamente logo y título en móvil */
+  .logo-title-container {
+    display: none !important;
+  }
+  
+  .controls-container {
+    flex-direction: row !important;
+    width: 100% !important; /* NUEVO: ocupar todo el ancho disponible */
+    justify-content: space-between !important; /* NUEVO: distribuir controles */
+  }
+  
+  /* NUEVO: Hacer controles más compactos sin logo */
+  #barra-nav input {
+    min-width: 100px !important;
+    max-width: 140px !important;
+    flex: 1 !important; /* Flexible pero limitado */
+  }
+  
+  #barra-nav select {
+    min-width: 80px !important;
+    max-width: 120px !important;
+    flex-shrink: 1 !important;
+  }
+  
+  #barra-nav button {
+    min-width: 70px !important;
+    flex-shrink: 0 !important; /* Botones mantienen tamaño mínimo */
+    padding: 0.5rem 0.75rem !important; /* Más compactos */
+  }
+}
