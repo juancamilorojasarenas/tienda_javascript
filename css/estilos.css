@@ -637,6 +637,38 @@ footer {
 
 /* ===== MEDIA QUERIES PARA DISPOSITIVOS PEQUEÑOS ===== */
 /* Pantallas muy pequeñas (hasta 360px) */
+/* ===== NAVEGACIÓN COLAPSADA EN PANTALLAS PEQUEÑAS (COMO A21S) ===== */
+@media (max-width: 480px) {
+  :root {
+    --nav-width: var(--nav-width-collapsed); /* Usar ancho colapsado */
+  }
+  
+  body {
+    margin-left: var(--nav-width-collapsed); /* Ajustar margen del body */
+  }
+  
+  header {
+    width: var(--nav-width-collapsed); /* Reducir ancho del header */
+  }
+  
+  #barra-nav {
+    padding: var(--spacing-sm) var(--spacing-xs); /* Padding interno */
+    gap: var(--spacing-sm); /* Espacio entre elementos */
+    transform: translateX(-100%); /* Ocultar fuera de la pantalla */
+    transition: transform var(--transition-normal); /* Transición suave */
+    position: fixed; /* Fijar posición */
+    top: 0; /* Alineación superior */
+    left: 0; /* Alineación izquierda */
+    width: var(--nav-width); /* Ancho completo al expandir */
+    height: 100vh; /* Altura completa */
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.95) 0%, rgba(16, 185, 129, 0.9) 100%); /* Fondo consistente */
+    z-index: 100; /* Capa alta */
+  }
+  
+  #barra-nav.expanded {
+    transform: translateX(0); /* Desplegar al 100% */
+  }
+}
 @media (max-width: 360px) {
   :root {
     --nav-width: var(--nav-width-collapsed);
