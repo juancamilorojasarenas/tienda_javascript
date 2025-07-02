@@ -301,6 +301,13 @@ function updateCartDisplay() {
 
     clearContainer(DOM.objetosCarrito);
 
+    // Agregar botón de cerrar si no existe
+    if (!DOM.panelCarro.querySelector('.close-cart-btn')) {
+        const closeBtn = createCloseCartButton();
+        closeBtn.classList.add('close-cart-btn');
+        DOM.panelCarro.insertBefore(closeBtn, DOM.panelCarro.firstChild);
+    }
+
     if (carrito.length === 0) {
         showEmptyCartMessage();
     } else {
@@ -315,6 +322,51 @@ function updateCartDisplay() {
 
     DOM.comprarBtn.disabled = carrito.length === 0;
     DOM.comprarBtn.style.opacity = carrito.length === 0 ? '0.5' : '1';
+}
+
+// Crear botón de cerrar carrito
+function createCloseCartButton() {
+    const closeBtn = createElement('button', {
+        style: `
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: var(--color-danger);
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            z-index: 1;
+            transition: all 0.2s ease;
+        `,
+        textContent: '×',
+        title: 'Cerrar carrito'
+    });
+
+    // Efecto hover
+    closeBtn.addEventListener('mouseenter', () => {
+        closeBtn.style.background = '#c53030';
+        closeBtn.style.transform = 'scale(1.1)';
+    });
+
+    closeBtn.addEventListener('mouseleave', () => {
+        closeBtn.style.background = 'var(--color-danger)';
+        closeBtn.style.transform = 'scale(1)';
+    });
+
+    closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        DOM.panelCarro.classList.add('oculto');
+    });
+
+    return closeBtn;
 }
 
 // Crear elemento del carrito
@@ -373,7 +425,11 @@ function createCartItem(item) {
         style: 'width: 24px; height: 24px; border: none; background: var(--color-gray-light); border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.8rem;',
         textContent: '-'
     });
-    decreaseBtn.addEventListener('click', () => updateCartQuantity(item.id, item.cantidad - 1));
+    // CAMBIO AQUÍ: Prevenir el evento de propagación
+    decreaseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        updateCartQuantity(item.id, item.cantidad - 1);
+    });
 
     const quantitySpan = createElement('span', {
         style: 'min-width: 30px; text-align: center; font-weight: 600;',
@@ -384,7 +440,11 @@ function createCartItem(item) {
         style: 'width: 24px; height: 24px; border: none; background: var(--color-gray-light); border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.8rem;',
         textContent: '+'
     });
-    increaseBtn.addEventListener('click', () => updateCartQuantity(item.id, item.cantidad + 1));
+    // CAMBIO AQUÍ: Prevenir el evento de propagación
+    increaseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        updateCartQuantity(item.id, item.cantidad + 1);
+    });
 
     quantityDiv.appendChild(decreaseBtn);
     quantityDiv.appendChild(quantitySpan);
@@ -395,7 +455,11 @@ function createCartItem(item) {
         style: 'padding: 0.25rem 0.5rem; border: none; background: var(--color-danger); color: white; border-radius: 4px; cursor: pointer; font-size: 0.8rem;',
         textContent: '🗑️'
     });
-    removeBtn.addEventListener('click', () => removeFromCart(item.id));
+    // CAMBIO AQUÍ: Prevenir el evento de propagación
+    removeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        removeFromCart(item.id);
+    });
 
     controlsDiv.appendChild(quantityDiv);
     controlsDiv.appendChild(removeBtn);
@@ -519,6 +583,7 @@ function initEventListeners() {
     // Botón de carrito
     DOM.carroBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        e.stopPropagation(); // CAMBIO AQUÍ: Prevenir propagación
         DOM.panelCarro.classList.toggle('oculto');
     });
 
@@ -550,14 +615,23 @@ function initEventListeners() {
     // Botón de compra
     DOM.comprarBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        e.stopPropagation(); // CAMBIO AQUÍ: Prevenir propagación
         processPurchase();
     });
 
-    // Cerrar carrito al hacer clic fuera
+    // CAMBIO AQUÍ: Mejorar el listener para cerrar carrito
     document.addEventListener('click', (e) => {
-        if (!DOM.panelCarro.contains(e.target) && !DOM.carroBtn.contains(e.target)) {
+        // Solo cerrar si el clic es completamente fuera del carrito y no en el botón del carrito
+        if (!DOM.panelCarro.contains(e.target) && 
+            !DOM.carroBtn.contains(e.target) && 
+            !DOM.panelCarro.classList.contains('oculto')) {
             DOM.panelCarro.classList.add('oculto');
         }
+    });
+
+    // Prevenir que los clics dentro del panel del carrito cierren el carrito
+    DOM.panelCarro.addEventListener('click', (e) => {
+        e.stopPropagation();
     });
 
     // Búsqueda con Enter
