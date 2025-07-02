@@ -10,29 +10,29 @@
 </head>
 
 <body>
-    <header>
-        <nav id="barra-nav">
-            <img src="./css/media/logo.png" alt="logo" />
-            <h1>Tienda 3x1</h1>
-
-            <input type="text" id="busqueda" placeholder="Buscar artículo..." />
-            <button id="searchBtn">Buscar</button>
-
-            <select id="Filtrar">
-                <option value="all">Todas las categorías</option>
-            </select>
-
-            <select id="sortSelect">
-                <option value="default">Ordenar por...</option>
-                <option value="precio-asc">Precio: menor a mayor</option>
-                <option value="precio-desc">Precio: mayor a menor</option>
-                <option value="nombre-asc">Nombre A-Z</option>
-                <option value="nombre-desc">Nombre Z-A</option>
-            </select>
-
-            <button id="carro">🛒 Carrito (<span id="cartCount">0</span>)</button>
-        </nav>
-    </header>
+ <header>
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" id="menu-toggle-btn">
+        <span></span><span></span><span></span>
+    </label>
+    <nav id="barra-nav">
+        <img src="./css/media/logo.png" alt="logo" />
+        <h1>Tienda 3x1</h1>
+        <input type="text" id="busqueda" placeholder="Buscar artículo..." />
+        <button id="searchBtn">Buscar</button>
+        <select id="Filtrar">
+            <option value="all">Todas las categorías</option>
+        </select>
+        <select id="sortSelect">
+            <option value="default">Ordenar por...</option>
+            <option value="precio-asc">Precio: menor a mayor</option>
+            <option value="precio-desc">Precio: mayor a menor</option>
+            <option value="nombre-asc">Nombre A-Z</option>
+            <option value="nombre-desc">Nombre Z-A</option>
+        </select>
+        <button id="carro">🛒 Carrito (<span id="cartCount">0</span>)</button>
+    </nav>
+</header>
 
     <hr />
 
